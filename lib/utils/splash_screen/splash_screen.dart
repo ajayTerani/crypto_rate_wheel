@@ -6,26 +6,6 @@ import '../../bitcoin_price/screen/bitcoin_price_screen.dart';
 import '../colour_constants.dart';
 import '../image_constant.dart';
 
-void main() {
-  runApp(const CryptoApp());
-}
-
-class CryptoApp extends StatelessWidget {
-  const CryptoApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "CryptoRate Wheel",
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primaryColor: ColourConstants.greenColor,
-      ),
-      home: const SplashScreen(),
-    );
-  }
-}
-
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
