@@ -1,12 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
+
 import 'package:cryptoratewheel/utils/colour_constants.dart';
 import 'package:cryptoratewheel/utils/image_constant.dart';
 import 'package:cryptoratewheel/utils/style_constants.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:flutter/material.dart';
-
+import '../../utils/utils.dart';
 import '../model/bitcoin_price_model.dart';
 
 class BitcoinPriceScreen extends StatefulWidget {
@@ -42,6 +43,23 @@ class _BitcoinPriceScreenState extends State<BitcoinPriceScreen> {
   }
 
   void fetchData() async {
+    if (!await checkInternetConnectivity()) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text("No Internet Connection"),
+          content: const Text("Please check your internet connection"),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text("OK"),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
+
     try {
       final response = await http
           .get(Uri.parse('https://api.coindesk.com/v1/bpi/currentprice.json'));
