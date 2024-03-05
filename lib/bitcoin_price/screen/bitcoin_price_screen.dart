@@ -49,37 +49,23 @@ class BitcoinPriceScreen extends StatelessWidget {
                   Text('Current Bitcoin Price',
                       style: StyleConstants.bitcoinScreenHeading),
                   const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        provider.selectedCurrency == 'USD'
-                            ? Icons.attach_money
-                            : provider.selectedCurrency == 'EUR'
-                            ? Icons.euro
-                            : Icons.currency_pound_sharp,
-                        color: ColourConstants.whiteColor,
-                        size: 35,
-                      ),
-                      const SizedBox(width: 5),
-                      StreamBuilder<BitcoinPriceModel>(
-                        stream: provider.bitcoinDataStream,
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            final data = snapshot.data!;
-                            return Text(
-                              data.rate.toStringAsFixed(2),
-                              style: TextStyle(
-                                  fontSize: 36,
-                                  color: ColourConstants.whiteColor),
-                            );
-                          } else {
-                            return const CircularProgressIndicator(
-                                color: Colors.greenAccent);
-                          }
-                        },
-                      ),
-                    ],
+                  const SizedBox(width: 5),
+                  StreamBuilder<BitcoinPriceModel>(
+                    stream: provider.bitcoinDataStream,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        final data = snapshot.data!;
+                        return Text(
+                          data.rate.toStringAsFixed(2),
+                          style: TextStyle(
+                              fontSize: 36,
+                              color: ColourConstants.whiteColor),
+                        );
+                      } else {
+                        return const CircularProgressIndicator(
+                            color: Colors.greenAccent);
+                      }
+                    },
                   ),
                   const SizedBox(height: 10),
                   StreamBuilder<BitcoinPriceModel>(
