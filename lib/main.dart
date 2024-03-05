@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'bitcoin_price/provider/bitcoin_price_provider.dart';
-import 'bitcoin_price/screen/bitcoin_price_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -11,19 +10,23 @@ void main() {
 }
 
 class CryptoApp extends StatelessWidget {
-  const CryptoApp({super.key});
+  const CryptoApp({Key? key});
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-        create: (context) => BitcoinPriceProvider(context),
-        child: MaterialApp(
-          title: "CryptoRate Wheel",
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            primaryColor: Colors.green,
-          ),
-          home: const SplashScreen(),
-        ));
+    return MaterialApp(
+      title: "CryptoRate Wheel",
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primaryColor: Colors.green,
+      ),
+      builder: (context, child) {
+        return ChangeNotifierProvider(
+          create: (context) => BitcoinPriceProvider(context),
+          child: child!,
+        );
+      },
+      home: const SplashScreen(),
+    );
   }
 }
